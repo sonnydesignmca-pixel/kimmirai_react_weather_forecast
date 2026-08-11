@@ -1,18 +1,40 @@
 import { regions } from "../data/regionsData.js";
+import { useState } from "react";
 export default function PageHeader({onGet}){
+  const [open,setOpen] = useState(false);
+
+  const regionsHandleClick =(index)=>{
+    const chosedRegion = document.querySelector(`#regions-${index}`);
+    chosedRegion.toggleAttribute("hidden","");
+  }
+
+  const prefecturesHandleClick=()=>{
+    const prefecturesList = document.querySelectorAll(".hide-all");
+    prefecturesList.forEach((element) => {
+    element.hidden = true;
+  });}
 	return (
     <div>
       <div className="p-4 flex justify-around gap-3 bg-[#2779f3]">
         {regions.map((region, index) => (
           <div key={index} className="relative w-full">
-            <h3 className="text-xl  text-white peer">{region.name}</h3>
-            <ul className="w-full text-md absolute hidden flex-col peer-hover:flex hover:flex peer-active:flex active:flex bg-[#2779f3] text-white z-10">
+            <h3
+              className="text-xl  text-white cursor-pointer"
+              onClick={() => regionsHandleClick(index)}
+            >
+              {region.name}
+            </h3>
+            <ul
+              id={`regions-${index}`}
+              className="w-full text-md absolute flex-col  bg-[#2779f3] text-white z-10 flex hide-all" hidden
+            >
               {region.prefectures.map((pref, index) => (
                 <li key={index} className="p-1.5">
                   <a
                     className="cursor-pointer"
                     onClick={() => {
                       onGet(pref.code, pref.name);
+                      prefecturesHandleClick();
                     }}
                   >
                     {pref.name}
