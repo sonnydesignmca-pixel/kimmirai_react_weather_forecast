@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { regions } from "../data/regionsData.js";
 import { useWeather } from "../utils/util.js";
-import WeatherCard from "../components/weatherCard";
 import WeatherCardList from "../components/WeatherCardList.jsx";
-import PageHeader from "../components/pageHeader.jsx";
+import PageHeader from "../components/PageHeader.jsx";
 
 export default function WeathersPage() {
   const [cityCode, setCityCode] = useState(null);
