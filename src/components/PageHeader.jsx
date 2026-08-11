@@ -5,7 +5,7 @@ export default function PageHeader({onGet}){
 
   const regionsHandleClick =(index)=>{
     const chosedRegion = document.querySelector(`#regions-${index}`);
-    chosedRegion.toggleAttribute("hidden","");
+    chosedRegion.toggleAttribute("hidden");
   }
 
   const prefecturesHandleClick=()=>{
@@ -26,15 +26,15 @@ export default function PageHeader({onGet}){
             </h3>
             <ul
               id={`regions-${index}`}
-              className="w-full text-md absolute flex-col  bg-[#2779f3] text-white z-10 flex hide-all" hidden
+              className="w-full text-md absolute   bg-[#2779f3] text-white z-10 hide-all" hidden
             >
               {region.prefectures.map((pref, index) => (
                 <li key={index} className="p-1.5">
                   <a
                     className="cursor-pointer"
                     onClick={() => {
-                      onGet(pref.code, pref.name);
                       prefecturesHandleClick();
+                      onGet(pref.code, pref.name);
                     }}
                   >
                     {pref.name}
