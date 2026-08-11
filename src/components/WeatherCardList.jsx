@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import WeatherCard from "./weatherCard";
+import WeatherCard from "./WeatherCard";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Mousewheel } from "swiper/modules";
