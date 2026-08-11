@@ -6,7 +6,7 @@ export default function PageHeader({onGet}){
         {regions.map((region, index) => (
           <div key={index} className="relative w-full">
             <h3 className="text-xl  text-white peer">{region.name}</h3>
-            <ul className="w-full text-md absolute hidden flex-col peer-hover:flex hover:flex bg-[#2779f3] text-white z-10">
+            <ul className="w-full text-md absolute hidden flex-col peer-hover:flex hover:flex peer-active:flex active:flex bg-[#2779f3] text-white z-10">
               {region.prefectures.map((pref, index) => (
                 <li key={index} className="p-1.5">
                   <a
