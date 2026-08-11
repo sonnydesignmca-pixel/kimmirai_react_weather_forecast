@@ -16,8 +16,9 @@ export default function WeathersPage() {
 
   return (
     <div>
+      <div className="inset-0 fixed w-screen h-screen bg-white -z-20"></div>
       {/* ページヘッダー */}
-      <PageHeader onGet={handleGet}/>
+      <PageHeader onGet={handleGet} />
 
       {/* メインコンテナ */}
       <div className="max-w-xl m-auto">
@@ -47,14 +48,16 @@ export default function WeathersPage() {
         )}
 
         {/* 天気予報カード */}
-        {!loading && !error &&(<WeatherCardList weather={weather}/>)}
+        {!loading && !error && <WeatherCardList weather={weather} />}
 
         {/* 天気予報説明文 */}
-        {!loading && !error && <div >
-          <div className="bg-white/60 rounded-2xl p-4 font-medium">
-            <p className="px-10">{weather?.description.text}</p>
+        {!loading && !error && (
+          <div>
+            <div className="bg-white/60 rounded-2xl p-4 font-medium">
+              <p className="px-10">{weather?.description.text}</p>
+            </div>
           </div>
-        </div>}
+        )}
       </div>
     </div>
   );
