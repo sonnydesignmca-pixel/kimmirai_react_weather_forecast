@@ -10,4 +10,5 @@ export default defineConfig({
     },
   },
   plugins: [react(),tailwindcss()],
+  base: '/kimmirai_react_weather_forecast/',
 })
