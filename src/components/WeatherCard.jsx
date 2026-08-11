@@ -16,8 +16,8 @@ export default function WeatherCard({forecast}){
 
 	return (
 		<div>
-			<div className="p-4 mx-4 items-center border-1 border-black rounded-2xl bg-white z-0">
-				<p className="text-lg">{transformedDate()}({dateLabel})</p>
+			<div className="p-3 mx-3 items-center border-1 border-black rounded-2xl bg-white z-0">
+				<p className="text-md md:text-lg">{transformedDate()}({dateLabel})</p>
 				<img id="weather-icon" className="m-auto w-full h-auto" src={forecast.image.url} alt="" />
 				<div className="my-3">
 					<p id="weather-name">{weather}</p>

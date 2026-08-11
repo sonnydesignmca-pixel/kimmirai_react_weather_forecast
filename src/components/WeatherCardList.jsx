@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import WeatherCard from "./WeatherCard";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -91,7 +91,12 @@ export default function WeatherCardList({ weather }) {
       {weather && (
         <div>
           <Swiper
-            spaceBetween={50}
+            spaceBetween={20}
+            breakpoints={{
+              520: {
+                spaceBetween: 50,
+              },
+            }}
             centeredSlides={true}
             loop={true}
             slidesPerView={2.1}
