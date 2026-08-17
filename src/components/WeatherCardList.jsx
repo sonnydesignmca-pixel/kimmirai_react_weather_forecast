@@ -9,6 +9,7 @@ export default function WeatherCardList({ weather }) {
   const [slideIndex, setSlideIndex] = useState(0);
   const [prevText, setPrevtext] = useState("明後日");
   const [nextText, setNexttext] = useState("明日");
+  const [isNavDisabled, setIsNavDisabled] = useState(false);
 
   // レイヤーAとレイヤーB、それぞれの画像URLを個別に管理する
   const [bgA, setBgA] = useState("");
@@ -17,33 +18,40 @@ export default function WeatherCardList({ weather }) {
   const [isLayerAActive, setIsLayerAActive] = useState(true);
 
   const handleSlideChange = (swiper) => {
+    setIsNavDisabled(true);
     setSlideIndex(swiper.realIndex);
-    const activeSlide = swiper.slides[swiper.activeIndex];
-    if (!activeSlide) return;
+    setTimeout(() => {
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      if (!activeSlide) return;
 
-    const activeIcon = activeSlide.querySelector("#weather-icon");
-    if (!activeIcon) return;
+      const activeIcon = activeSlide.querySelector("#weather-icon");
+      if (!activeIcon) return;
 
-    const newSrc = activeIcon.getAttribute("src");
+      const newSrc = activeIcon.getAttribute("src");
 
-    // 現在表示中のレイヤーの画像と同じ場合は何もしない
-    const currentSrc = isLayerAActive ? bgA : bgB;
-    if (newSrc === currentSrc) return;
+      // 現在表示中のレイヤーの画像と同じ場合は何もしない
+      const currentSrc = isLayerAActive ? bgA : bgB;
+      if (newSrc === currentSrc) {
+        setIsNavDisabled(false);
+        return;
+      }
 
-    // 裏側に隠れている方のレイヤーに新しい画像をセットし、表示を切り替える
-    //最初のレンダリングではsetBgBが実行される仕組み
-    if (isLayerAActive) {
-      setBgB(newSrc);
-      setIsLayerAActive(false); // Bをフェードイン、Aをフェードアウトopacity調整用フラグ
-    } else {
-      setBgA(newSrc);
-      setIsLayerAActive(true); // Aをフェードイン、Bをフェードアウトopacity調整用フラグ
-    }
+      // 裏側に隠れている方のレイヤーに新しい画像をセットし、表示を切り替える
+      //最初のレンダリングではsetBgBが実行される仕組み
+      if (isLayerAActive) {
+        setBgB(newSrc);
+        setIsLayerAActive(false); // Bをフェードイン、Aをフェードアウトopacity調整用フラグ
+      } else {
+        setBgA(newSrc);
+        setIsLayerAActive(true); // Aをフェードイン、Bをフェードアウトopacity調整用フラグ
+      }
+      setIsNavDisabled(false);
+    }, 330);
   };
 
   // 背景画像の共通クラス
   const bgLayerClass =
-    "fixed inset-0 w-screen h-screen filter blur-[100px] scale-200 pointer-events-none transition-opacity duration-700 ease-in-out";
+    "fixed inset-0 w-screen h-screen filter blur-[120px] scale-170 pointer-events-none transition-opacity duration-700 ease-in-out";
 
   // 前後ボタンの切り替え
   useEffect(() => {
@@ -86,7 +94,7 @@ export default function WeatherCardList({ weather }) {
       )}
 
       {/* 背景の上の薄い白レイヤー */}
-      <div className="fixed inset-0 w-screen h-screen bg-white/20 pointer-events-none -z-10" />
+      <div className="fixed inset-0 w-screen h-screen bg-white/15 pointer-events-none -z-10" />
 
       {weather && (
         <div>
@@ -125,8 +133,14 @@ export default function WeatherCardList({ weather }) {
             ))}
 
             <div className="flex justify-between text-2xl my-4">
-              <SlidePrevButton prevText={prevText} />
-              <SlideNextButton nextText={nextText} />
+              <SlidePrevButton
+                prevText={prevText}
+                isNavDisabled={isNavDisabled}
+              />
+              <SlideNextButton
+                nextText={nextText}
+                isNavDisabled={isNavDisabled}
+              />
             </div>
           </Swiper>
         </div>
