@@ -54,7 +54,7 @@ export default function WeatherCardList({ weather }) {
 
   // 背景画像の共通クラス
   const bgLayerClass =
-    "fixed inset-0 w-screen h-screen filter blur-[120px] scale-170 pointer-events-none transition-opacity duration-700 ease-in-out";
+    "fixed inset-0 w-screen h-screen filter blur-[120px] scale-170 pointer-events-none transition-opacity duration-790 ease-in-out";
 
   // 前後ボタンの切り替え
   useEffect(() => {
