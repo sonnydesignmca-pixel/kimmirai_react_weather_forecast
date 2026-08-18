@@ -19,18 +19,21 @@ export default function WeatherCardList({ weather }) {
 
   const handleSlideChange = (swiper) => {
     setIsNavDisabled(true);
-    setSlideIndex(swiper.realIndex);
-    setTimeout(() => {
-      const activeSlide = swiper.slides[swiper.activeIndex];
-      if (!activeSlide) return;
 
+    //現在画面中心にいるスライドを取得
+    const activeSlide = swiper.slides[swiper.activeIndex];
+
+    setSlideIndex(swiper.realIndex);
+    if (!activeSlide) return;
+
+    setTimeout(() => {
       const activeIcon = activeSlide.querySelector("#weather-icon");
       if (!activeIcon) return;
 
       const newSrc = activeIcon.getAttribute("src");
 
-      // 現在表示中のレイヤーの画像と同じ場合は何もしない
       const currentSrc = isLayerAActive ? bgA : bgB;
+      // 現在表示中のレイヤーの画像と同じ場合は何もしない
       if (newSrc === currentSrc) {
         setIsNavDisabled(false);
         return;
@@ -76,22 +79,18 @@ export default function WeatherCardList({ weather }) {
   return (
     <div className="relative w-full overflow-hidden">
       {/* 背景レイヤーA */}
-      {bgA && (
-        <div
-          className={`-z-20 ${isLayerAActive ? "opacity-100" : "opacity-0"} ${bgLayerClass}`}
-        >
-          <img src={bgA} className="w-full h-full object-cover" />
-        </div>
-      )}
+      <div
+        className={`-z-20 ${isLayerAActive ? "opacity-100" : "opacity-0"} ${bgLayerClass}`}
+      >
+        {bgA && <img src={bgA} className="w-full h-full object-cover" />}
+      </div>
 
       {/* 背景レイヤーB */}
-      {bgB && (
-        <div
-          className={`-z-20 ${!isLayerAActive ? "opacity-100" : "opacity-0"} ${bgLayerClass}`}
-        >
-          <img src={bgB} className="w-full h-full object-cover" />
-        </div>
-      )}
+      <div
+        className={`-z-20 ${!isLayerAActive ? "opacity-100" : "opacity-0"} ${bgLayerClass}`}
+      >
+        {bgB && <img src={bgB} className="w-full h-full object-cover" />}
+      </div>
 
       {/* 背景の上の薄い白レイヤー */}
       <div className="fixed inset-0 w-screen h-screen bg-white/15 pointer-events-none -z-10" />
